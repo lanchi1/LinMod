@@ -21,6 +21,77 @@ require(foreign)
 data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE) 
 ```
 
+Regression Model 1- SIMS vs ARM 
+
+```{r}
+model1 <- lm(SIMS~ARM,data=data)
+plot(SIMS~ARM,data=data)
+abline(model1)
+summary.lm(model1)
+```
+
+```{r}
+new <- data.frame(ARM=88, GRIP=94)
+```
+
+```{r}
+predict(model1,new,interval= "prediction")
+```
+
+Regression 2 - SIMS vs GRIP 
+
+```{r}
+model2 <- lm(SIMS~GRIP,data=data)
+plot(SIMS~GRIP,data=data)
+abline(model2)
+summary.lm(model2)
+```
+
+```{r}
+predict(model2,new,interval= "prediction")
+```
+
+Regression model3 ARM + GRIP 
+
+```{r}
+model3 <- lm(SIMS~ARM+GRIP,data=data)
+plot(SIMS~ARM+GRIP,data=data)
+abline(model3)
+summary.lm(model3)
+```
+
+```{r}
+new <- data.frame(ARM=88, GRIP=94)
+```
+
+```{r}
+predict(model3,new,interval= "prediction")
+```
+
+Comparing model 1 to model 3
+
+```{r}
+anova(model1, model3)
+```
+
+Comparing model2 to model 3
+
+```{r}
+anova(model2, model3)
+```
+
+compare model 1 and model2 
+```{r}
+anova(model1, model2)
+```
+
+
+
+
+SUMARY
+
+As shown above we have compare models one all the way to model three we see differences in their RSS. In model one we have an RSS of 217 whereas in model 2 we have 243. When we compare model three to these we get 188. 
+
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
